@@ -9,5 +9,4 @@ public class TreidingBrokerSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(TreidingBrokerSystemApplication.class, args);
     }
-
 }

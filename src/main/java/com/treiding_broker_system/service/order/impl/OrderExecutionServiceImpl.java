@@ -1,9 +1,10 @@
-package com.treiding_broker_system.service;
+package com.treiding_broker_system.service.order.impl;
 
 import com.treiding_broker_system.model.order.Deal;
 import com.treiding_broker_system.model.order.Order;
 import com.treiding_broker_system.model.order.Status;
 import com.treiding_broker_system.model.order.TargetAction;
+import com.treiding_broker_system.service.order.OrderExecutionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class OrderExecutionServiceImpl implements OrderExecutionService {
     /**
      * Basically I've created logic by way where we are executing
      * the oldest existed orders first of the all independents of required item count.
-     * I guess will be better execute and done old orders before they expired. Complexity O(N^2).
+     * I guess will be better execute and done old orders before they expired.
      */
     public List<Deal> execute(Order targetOrder, List<Order> allOrders) {
         for (int i = 0; i < allOrders.size(); i++) {
@@ -56,6 +57,7 @@ public class OrderExecutionServiceImpl implements OrderExecutionService {
     }
 
     private List<Deal> execute(Order targetOrder, List<Order> allOrders, List<Deal> allDeals) {
+        // maybe will be better transmit to here two separate lists instead filtering this one
         var oppositOrderOptional = allOrders.stream()
                 .filter(oppositOrder -> !oppositOrder.getAction().equals(targetOrder.getAction()))
                 .filter(oppositOrder -> !oppositOrder.getStatus().equals(Status.CAPTURED_BY_PROCESS))
