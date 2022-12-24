@@ -29,9 +29,10 @@ public class OrderRepository {
     public List<Order> getAllRelatedOrders(OrderFilter filter) {
         return orders.stream()
                 .filter(order ->
-                            !order.getOwner().getId().equals(filter.getResearcherId()) &&
-                             order.getInstrument().equals(filter.getTargetInstrument()) &&
-                             order.getStatus().equals(Status.ACTIVE))
+                        !order.getOwner().getId().equals(filter.getResearcherId()) &&
+                        order.getInstrument().equals(filter.getTargetInstrument()) &&
+                        order.getExpirationDate().isAfter(filter.getMinDateTimeLimitation()) &&
+                        order.getStatus().equals(Status.ACTIVE))
                 .collect(Collectors.toList());
     }
 

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -13,4 +15,5 @@ import lombok.NoArgsConstructor;
 public class OrderFilter {
     private Instrument targetInstrument;
     private Long researcherId;
+    private LocalDateTime minDateTimeLimitation;
 }
