@@ -4,14 +4,16 @@ import com.treiding_broker_system.model.instrument.Instrument;
 import com.treiding_broker_system.model.order.Order;
 import com.treiding_broker_system.model.order.Status;
 import com.treiding_broker_system.model.order.TargetAction;
-import com.treiding_broker_system.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  These are not functional tests.
+ *  I've written them only to track the result by watching them through println
+ * */
 @SpringBootTest
 class OrderExecutionServiceImplTest {
     @Autowired
@@ -239,6 +241,113 @@ class OrderExecutionServiceImplTest {
 
     @Test
     void execute5() {
+        var orders = List.of(
+                Order.builder()
+                        .id(9L)
+                        .action(TargetAction.BUY)
+                        .instrument(Instrument.builder()
+                                .id(1L)
+                                .title("Meat")
+                                .build())
+                        .initialCount(1)
+                        .currentCount(1)
+                        .status(Status.ACTIVE)
+                        .build(),
 
+                Order.builder()
+                        .id(6L)
+                        .action(TargetAction.SELL)
+                        .instrument(Instrument.builder()
+                                .id(43L)
+                                .title("Meat")
+                                .build())
+                        .initialCount(6)
+                        .currentCount(6)
+                        .status(Status.ACTIVE)
+                        .build(),
+
+                Order.builder()
+                        .id(3L)
+                        .action(TargetAction.SELL)
+                        .instrument(Instrument.builder()
+                                .id(43L)
+                                .title("Meat")
+                                .build())
+                        .initialCount(2)
+                        .currentCount(2)
+                        .status(Status.ACTIVE)
+                        .build()
+        );
+
+        var targetOrder = Order.builder()
+                .instrument(Instrument.builder()
+                        .id(1337L)
+                        .title("Pork meat")
+                        .build())
+                .action(TargetAction.BUY)
+                .initialCount(5)
+                .currentCount(5)
+                .status(Status.ACTIVE)
+                .build();
+
+        var result = orderExecutionServiceImpl.execute(targetOrder, orders);
+        result.forEach(System.out::println);
+    }
+
+    @Test
+    void execute6() {
+        var orders = List.of(
+                Order.builder()
+                        .id(9L)
+                        .action(TargetAction.SELL)
+                        .instrument(Instrument.builder()
+                                .id(1L)
+                                .title("Meat")
+                                .build())
+                        .initialCount(1)
+                        .currentCount(1)
+                        .status(Status.ACTIVE)
+                        .build(),
+
+                Order.builder()
+                        .id(6L)
+                        .action(TargetAction.SELL)
+                        .instrument(Instrument.builder()
+                                .id(43L)
+                                .title("Meat")
+                                .build())
+                        .initialCount(6)
+                        .currentCount(6)
+                        .status(Status.ACTIVE)
+                        .build(),
+
+                Order.builder()
+                        .id(3L)
+                        .action(TargetAction.SELL)
+                        .instrument(Instrument.builder()
+                                .id(43L)
+                                .title("Meat")
+                                .build())
+                        .initialCount(2)
+                        .currentCount(2)
+                        .status(Status.ACTIVE)
+                        .build()
+        );
+
+        var targetOrder = Order.builder()
+                .instrument(Instrument.builder()
+                        .id(1337L)
+                        .title("Pork meat")
+                        .build())
+                .action(TargetAction.BUY)
+                .initialCount(5)
+                .currentCount(5)
+                .status(Status.ACTIVE)
+                .build();
+
+        var result = orderExecutionServiceImpl.execute(targetOrder, orders);
+        result.forEach(System.out::println);
+        System.out.println(result.size());
+        System.out.println(result);
     }
 }
