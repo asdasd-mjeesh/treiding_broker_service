@@ -1,4 +1,4 @@
-package com.treiding_broker_system.model;
+package com.treiding_broker_system.model.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Deal {
-    private Long id;
-    private Order buyerOrder;
-    private Order sellerOrder;
+public class UserRequest {
+    private String username;
+    private String password;
 }

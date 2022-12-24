@@ -1,7 +1,9 @@
 package com.treiding_broker_system.repository;
 
-import com.treiding_broker_system.model.Order;
-import com.treiding_broker_system.model.TargetAction;
+import com.treiding_broker_system.model.instrument.Instrument;
+import com.treiding_broker_system.model.order.Order;
+import com.treiding_broker_system.model.order.Status;
+import com.treiding_broker_system.model.order.TargetAction;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -13,24 +15,11 @@ public class OrderRepository {
 
     {
         orders = new ArrayList<>(List.of(
-                Order.builder()
-                        .id(1L)
-                        .action(TargetAction.BUY)
-                        .item("Pork meat")
-                        .count(5)
-                        .build(),
-                Order.builder()
-                        .id(2L)
-                        .action(TargetAction.SELL)
-                        .item("Pork meat")
-                        .count(9)
-                        .build(),
-                Order.builder()
-                        .id(3L)
-                        .action(TargetAction.BUY)
-                        .item("Pork meat")
-                        .count(5)
-                        .build()
+
+
+
+
+
         ));
     }
 

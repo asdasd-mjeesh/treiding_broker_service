@@ -1,4 +1,4 @@
-package com.treiding_broker_system.model;
+package com.treiding_broker_system.model.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class Deal {
     private Long id;
-    private String item;
-    private Integer count;
-    private TargetAction action;
+    private Order buyerOrder;
+    private Order sellerOrder;
 }
