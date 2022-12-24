@@ -12,6 +12,8 @@ public interface UserService {
 
     Optional<User> getById(Long id);
 
+    Optional<User> getByUsername(String username);
+
     void addMoneyToUserBalance(Long userId, BigDecimal money);
 
     void reduceMoneyFromUserBalance(Long userId, BigDecimal money);

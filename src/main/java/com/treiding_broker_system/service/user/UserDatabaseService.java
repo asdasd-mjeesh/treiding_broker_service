@@ -29,6 +29,11 @@ public class UserDatabaseService implements UserService {
     }
 
     @Override
+    public Optional<User> getByUsername(String username) {
+        return userRepository.getByUsername(username);
+    }
+
+    @Override
     // @Transactional
     public void addMoneyToUserBalance(Long userId, BigDecimal money) {
         var user = userRepository.getUserWithResultChecking(userId);

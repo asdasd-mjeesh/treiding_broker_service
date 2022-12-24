@@ -44,6 +44,12 @@ public class UserRepository {
                 .findAny();
     }
 
+    public Optional<User> getByUsername(String username) {
+        return this.users.stream()
+                .filter(user -> user.getUsername().equals(username))
+                .findAny();
+    }
+
     public void update(User user) {
         // It's unnecessary action because I change value by the link,
         // but anyway I've created this method for logic demonstration

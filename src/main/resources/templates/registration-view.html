@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/users/create-user}">
+    <h2>Please, do enter your account details</h2>
+
+    <label for="username"> Username: </label>
+    <input name="username" type="text" id="username" placeholder="type your username...">
+    <br>
+    <br>
+    <label for="password"> Password: </label>
+    <input name="password" type="text" id="password" placeholder="type your password...">
+    <br>
+    <br>
+    <label for="balance"> Balance: </label>
+    <input name="balance" type="text" id="balance" placeholder="type your balance...">
+    <br>
+    <br>
+    <input type="submit" value="CREATE">
+</form>
+
+</body>
+</html>
