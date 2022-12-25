@@ -14,8 +14,8 @@ import javax.annotation.PostConstruct;
 @Service
 @RequiredArgsConstructor
 public class TradeSessionServiceImpl implements TradeSessionService {
+    private final OrderRepository orderRepository;
     private TradeSession tradeSession;
-    private OrderRepository orderRepository;
 
     @PostConstruct
     private void init() {
@@ -37,9 +37,11 @@ public class TradeSessionServiceImpl implements TradeSessionService {
 
     private void cancelTheOrders() {
         var orders = orderRepository.getAll();
-        orders.stream()
-                .filter(order -> order.getStatus().equals(Status.ACTIVE))
-                .forEach(order -> order.setStatus(Status.CANCELED));
+        if (!orders.isEmpty()) {
+            orders.stream()
+                    .filter(order -> order.getStatus().equals(Status.ACTIVE))
+                    .forEach(order -> order.setStatus(Status.CANCELED));
+        }
     }
 
     public boolean isSessionActive() {

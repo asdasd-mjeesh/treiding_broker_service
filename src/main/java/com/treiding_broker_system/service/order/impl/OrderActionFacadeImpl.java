@@ -30,8 +30,6 @@ public class OrderActionFacadeImpl implements OrderActionFacade {
 
         var deals = orderExecutionService.execute(order, relatedOrders);
 
-        System.out.println(deals);
-
         if (!deals.isEmpty()) {
             dealService.createAll(deals);
             orderService.updateAll(relatedOrders);

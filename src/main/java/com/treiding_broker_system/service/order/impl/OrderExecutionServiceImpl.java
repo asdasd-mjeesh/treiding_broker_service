@@ -20,6 +20,7 @@ public class OrderExecutionServiceImpl implements OrderExecutionService {
         for (int i = 0; i < allOrders.size(); i++) {
             var deals = this.execute(targetOrder, allOrders, new ArrayList<>());
             if (!deals.isEmpty()) {
+                this.resetNotConvenientOrdersBack(allOrders);
                 this.setEventualStatus(deals, allOrders);
                 return deals;
             }
