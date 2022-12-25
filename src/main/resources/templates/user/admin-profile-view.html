@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/orders/newOrderDetails}">
+<form>
     <h2>Admin profile</h2>
 
     <label for="id"> ID: </label>
@@ -27,19 +27,20 @@
     <span th:text="${admin.balance}" id="balance"></span>
     <br>
     <br>
-    <label for="session_state"> Session state: </label>
+    <label for="session_state"> Trade session state: </label>
     <span th:text="${@tradeSessionServiceImpl.getSessionState()}" id="session_state"></span>
     <br>
     <br>
 
-    <a th:href="@{/orders/all}" class="btn btn-primary">All orders</a>
-    <a th:href="@{/deals/all}" class="btn btn-primary">All deals</a>
     <a th:href="@{/sessions/start}" class="btn btn-primary">Start session</a>
     <a th:href="@{/sessions/stop}" class="btn btn-primary">Stop session</a>
-
     <br>
     <br>
-    <input type="submit" value="CREATE NEW ORDER">
+    <a th:href="@{/orders/all}" class="btn btn-secondary">All orders</a>
+    <a th:href="@{/deals/all}" class="btn btn-secondary">All deals</a>
+    <br>
+    <br>
+    <a th:href="@{/orders/newOrderDetails/ownerId/{ownerId}(ownerId=${admin.id})}" class="btn btn-secondary">CREATE NEW ORDER</a>
 </form>
 </body>
 </html>
