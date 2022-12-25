@@ -25,17 +25,18 @@ public class OrderActionFacadeImpl implements OrderActionFacade {
     public Order createAndExecute(Order order) {
         this.updateOrdersState();
 
-        orderService.create(order);
         var relatedOrders = orderService.getAllRelatedOrders(
                 new OrderFilter(order.getInstrument(), order.getOwner().getId(), LocalDateTime.now()));
 
         var deals = orderExecutionService.execute(order, relatedOrders);
 
+        System.out.println(deals);
+
         if (!deals.isEmpty()) {
             dealService.createAll(deals);
-            orderService.update(order);
             orderService.updateAll(relatedOrders);
         }
+        orderService.create(order);
         return order;
     }
 

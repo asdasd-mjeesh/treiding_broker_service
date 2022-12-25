@@ -170,6 +170,8 @@ class OrderExecutionServiceImplTest {
                         .build()
         );
 
+
+
         var targetOrder = Order.builder()
                 .instrument(Instrument.builder()
                         .id(1337L)
@@ -186,11 +188,79 @@ class OrderExecutionServiceImplTest {
     }
 
     @Test
-    void execute4() {
+    void execute11() {
         var orders = List.of(
                 Order.builder()
                         .id(9L)
+                        .action(TargetAction.BUY)
+                        .instrument(Instrument.builder()
+                                .id(43L)
+                                .title("Meat")
+                                .build())
+                        .initialCount(9)
+                        .currentCount(9)
+                        .status(Status.ACTIVE)
+                        .build(),
+
+                Order.builder()
+                        .id(2L)
+                        .action(TargetAction.BUY)
+                        .instrument(Instrument.builder()
+                                .id(43L)
+                                .title("Meat")
+                                .build())
+                        .initialCount(2)
+                        .currentCount(2)
+                        .status(Status.ACTIVE)
+                        .build(),
+
+                Order.builder()
+                        .id(3L)
+                        .action(TargetAction.BUY)
+                        .instrument(Instrument.builder()
+                                .id(43L)
+                                .title("Meat")
+                                .build())
+                        .initialCount(3)
+                        .currentCount(3)
+                        .status(Status.ACTIVE)
+                        .build(),
+
+                Order.builder()
+                        .instrument(Instrument.builder()
+                                .id(1337L)
+                                .title("Pork meat")
+                                .build())
                         .action(TargetAction.SELL)
+                        .initialCount(4)
+                        .currentCount(4)
+                        .status(Status.ACTIVE)
+                        .build()
+        );
+
+
+        var targetOrder = Order.builder()
+                .id(1L)
+                .action(TargetAction.SELL)
+                .instrument(Instrument.builder()
+                        .id(12L)
+                        .title("Meat")
+                        .build())
+                .initialCount(1)
+                .currentCount(1)
+                .status(Status.ACTIVE)
+                .build();
+
+        var result = orderExecutionServiceImpl.execute(targetOrder, orders);
+        result.forEach(System.out::println);
+    }
+
+    @Test
+    void execute4() {
+        var orders = List.of(
+                Order.builder()
+                        .id(1L)
+                        .action(TargetAction.BUY)
                         .instrument(Instrument.builder()
                                 .id(1L)
                                 .title("Meat")
@@ -202,9 +272,9 @@ class OrderExecutionServiceImplTest {
 
                 Order.builder()
                         .id(6L)
-                        .action(TargetAction.SELL)
+                        .action(TargetAction.BUY)
                         .instrument(Instrument.builder()
-                                .id(43L)
+                                .id(6L)
                                 .title("Meat")
                                 .build())
                         .initialCount(6)
@@ -213,10 +283,10 @@ class OrderExecutionServiceImplTest {
                         .build(),
 
                 Order.builder()
-                        .id(3L)
-                        .action(TargetAction.BUY)
+                        .id(2L)
+                        .action(TargetAction.SELL)
                         .instrument(Instrument.builder()
-                                .id(43L)
+                                .id(2L)
                                 .title("Meat")
                                 .build())
                         .initialCount(2)
@@ -226,11 +296,12 @@ class OrderExecutionServiceImplTest {
         );
 
         var targetOrder = Order.builder()
+                .id(5L)
                 .instrument(Instrument.builder()
-                        .id(1337L)
+                        .id(5L)
                         .title("Pork meat")
                         .build())
-                .action(TargetAction.BUY)
+                .action(TargetAction.SELL)
                 .initialCount(5)
                 .currentCount(5)
                 .status(Status.ACTIVE)

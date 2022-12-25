@@ -16,11 +16,6 @@ import java.util.List;
 public class OrderExecutionServiceImpl implements OrderExecutionService {
     private static Long deals = 1L;
 
-    /**
-     * Basically I've created logic by way where we are executing
-     * the oldest existed orders first of the all independents of required item count.
-     * I guess will be better execute and done old orders before they expired.
-     */
     public List<Deal> execute(Order targetOrder, List<Order> allOrders) {
         for (int i = 0; i < allOrders.size(); i++) {
             var deals = this.execute(targetOrder, allOrders, new ArrayList<>());
@@ -30,6 +25,7 @@ public class OrderExecutionServiceImpl implements OrderExecutionService {
             }
             this.resetDetailsBack(allOrders, targetOrder);
         }
+        this.resetNotConvenientOrdersBack(allOrders);
         return new ArrayList<>();
     }
 
@@ -48,12 +44,19 @@ public class OrderExecutionServiceImpl implements OrderExecutionService {
     private void resetDetailsBack(List<Order> allOrders, Order targetOrder) {
         targetOrder.setStatus(Status.ACTIVE);
         targetOrder.setCurrentCount(targetOrder.getInitialCount());
+
+        allOrders.forEach(order -> {
+            if (order.getStatus().equals(Status.CAPTURED_BY_PROCESS)) {
+                order.setStatus(Status.ACTIVE);
+            }
+            order.setCurrentCount(order.getInitialCount());
+        });
+    }
+
+    private void resetNotConvenientOrdersBack(List<Order> allOrders) {
         allOrders.stream()
-                .filter(order -> order.getStatus().equals(Status.CAPTURED_BY_PROCESS))
-                .forEach(order -> {
-                    order.setStatus(Status.ACTIVE);
-                    order.setCurrentCount(order.getInitialCount());
-                });
+                .filter(order -> order.getStatus().equals(Status.NOT_CONVENIENT))
+                .forEach(order -> order.setStatus(Status.ACTIVE));
     }
 
     private List<Deal> execute(Order targetOrder, List<Order> allOrders, List<Deal> allDeals) {
