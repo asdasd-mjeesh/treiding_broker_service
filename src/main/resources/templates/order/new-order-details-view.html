@@ -11,15 +11,15 @@
     />
 </head>
 <body>
-<form th:method="POST" th:action="@{/orders/createOrder}">
+<form th:method="POST" th:action="@{/orders/createOrder/ownerId/{ownerId}(ownerId=${userOwner.id})}">
     <h2>Please, set details to the order to make them</h2>
     <br>
     <br>
     <div>
         <label for="instrument">Instrument</label>
-        <select name="instrument=" id="instrument">
+        <select name="instrument" id="instrument">
             <option th:each="instrument : ${instruments}"
-                    th:value="${instrument}"
+                    th:value="${instrument.id}"
                     th:text="${instrument.title}">
             </option>
         </select>
@@ -29,18 +29,17 @@
     <input name="count" type="number" id="count" placeholder="required count...">
     <br>
     <br>
-    <label for="price">Price limit for 1 unit(min for selling, if you are selling; max for buying, if you are
-        buying:</label>
+    <label for="price">Price limit for 1 unit(min for selling, if you are selling; max for buying, if you are buying:</label>
     <input name="price" type="number" id="price" placeholder="price limit...">
     <br>
     <br>
-    <label for="expiration_date">Expiration date</label>
-    <input name="expiration_date" type="datetime-local" id="expiration_date" placeholder="expiration date...">
+    <label for="expirationDate">Expiration date</label>
+    <input name="expirationDate" type="datetime-local" id="expirationDate" placeholder="expiration date...">
     <br>
     <br>
     <div>
-        <label for="target_action">Action</label>
-        <select name="target_action=" id="target_action">
+        <label for="targetAction">Action</label>
+        <select name="targetAction" id="targetAction">
             <option th:each="action : ${actions}"
                     th:value="${action}"
                     th:text="${action}">

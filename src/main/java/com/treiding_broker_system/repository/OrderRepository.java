@@ -33,7 +33,7 @@ public class OrderRepository {
                 .collect(Collectors.toList());
     }
 
-    @PostConstruct
+//    @PostConstruct
     private void init() {
         orders.add(Order.builder()
                         .id(5L)

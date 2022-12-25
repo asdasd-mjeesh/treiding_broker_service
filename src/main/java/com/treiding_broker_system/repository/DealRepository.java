@@ -15,7 +15,7 @@ public class DealRepository {
     private final List<Deal> deals = new ArrayList<>();
     private final OrderRepository orderRepository;
 
-    @PostConstruct
+//    @PostConstruct
     private void init() {
         deals.add(Deal.builder()
                         .id(213L)
