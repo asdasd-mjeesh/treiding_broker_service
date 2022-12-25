@@ -1,5 +1,6 @@
-package com.treiding_broker_system.model.order;
+package com.treiding_broker_system.model.deal;
 
+import com.treiding_broker_system.model.order.Order;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

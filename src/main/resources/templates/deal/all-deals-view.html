@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All deals</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Seller</th>
+        <th>Buyer</th>
+        <th>Instrument</th>
+        <th>Count</th>
+        <th>Price</th>
+    </tr>
+
+    <tr th:each="deal, state : ${deals}">
+        <td th:utext="${deal.id}"> VALUE </td>
+        <td th:utext="${deal.seller}"> VALUE </td>
+        <td th:utext="${deal.buyer}"> VALUE </td>
+        <td th:utext="${deal.instrument.title}"> VALUE </td>
+        <td th:utext="${deal.count}"> VALUE </td>
+        <td th:utext="${deal.price}"> VALUE </td>
+    </tr>
+</table>
+</body>
+</html>

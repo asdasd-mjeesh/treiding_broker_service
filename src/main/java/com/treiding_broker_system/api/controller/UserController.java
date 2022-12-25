@@ -10,11 +10,10 @@ import com.treiding_broker_system.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/users")
@@ -26,36 +25,47 @@ public class UserController {
 
     @GetMapping("/registration")
     public String registration() {
-        return "registration-view";
+        return "/user/registration-view";
     }
 
-    @PostMapping("/create-user")
-    public String createUser(@RequestParam Map<String, String> body) {
+    @PostMapping("/create")
+    public String createUser(@RequestParam(name = "username") String username,
+                             @RequestParam(name = "password") String password,
+                             @RequestParam(name = "balance", defaultValue = "1000.0") BigDecimal balance) {
         var userRequest = UserRequest.builder()
-                .username(body.get("username"))
-                .balance(BigDecimal.valueOf(Double.parseDouble(body.get("balance"))))
-                .password(body.get("password"))
+                .username(username)
+                .password(password)
+                .balance(balance)
                 .build();
         var user = userRequestMapper.map(userRequest);
         userService.create(user);
-        return "login-view";
+
+        return "redirect:/users/login";
     }
 
-    @PostMapping("/login")
-    public String login(@RequestParam Map<String, String> body, Model model) {
-        var username = body.get("username");
+    @GetMapping("/login")
+    public String login() {
+        return "/user/login-view";
+    }
+
+    @GetMapping("/profile")
+    public ModelAndView profileEnter(@RequestParam(name = "username") String username,
+                                     @RequestParam(name = "password") String password) {
         var user = userService.getByUsername(username).orElseThrow(
                 () -> new EntityNotFoundException(String.format("User with username=%s not found", username)));
 
-        var password = body.get("password");
         if (user.getPassword().equals(password)) {
+            var mav = new ModelAndView();
             var userResponse = userResponseMapper.map(user);
-            if (user.getRole().equals(Role.USER)) {
-                model.addAttribute("user", userResponse);
-                return "user-profile-view";
+
+            if (user.getRole().equals(Role.ADMIN)) {
+                mav.addObject("admin", userResponse);
+                mav.setViewName("/user/admin-profile-view");
+            } else {
+                mav.addObject("user", userResponse);
+                mav.setViewName("/user/user-profile-view");
             }
-            model.addAttribute("admin", userResponse);
-            return "admin-profile-view";
+            return mav;
         }
         throw new UserAccessException("Wrong password", HttpStatus.FORBIDDEN);
     }

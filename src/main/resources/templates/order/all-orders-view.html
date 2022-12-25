@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All orders</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Instrument</th>
+        <th>Count</th>
+        <th>Action</th>
+        <th>Expiration date</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Owner</th>
+    </tr>
+
+    <tr th:each="order, state : ${orders}">
+        <td th:utext="${order.id}"> VALUE </td>
+        <td th:utext="${order.instrument.title}"> VALUE </td>
+        <td th:utext="${order.count}"> VALUE </td>
+        <td th:utext="${order.action}"> VALUE </td>
+        <td th:utext="${order.expirationDate}"> VALUE </td>
+        <td th:utext="${order.price}"> VALUE </td>
+        <td th:utext="${order.status}"> VALUE </td>
+        <td th:utext="${order.owner.username}"> VALUE </td>
+    </tr>
+</table>
+</body>
+</html>

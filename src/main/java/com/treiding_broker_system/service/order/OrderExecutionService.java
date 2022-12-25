@@ -1,6 +1,6 @@
 package com.treiding_broker_system.service.order;
 
-import com.treiding_broker_system.model.order.Deal;
+import com.treiding_broker_system.model.deal.Deal;
 import com.treiding_broker_system.model.order.Order;
 
 import java.util.List;

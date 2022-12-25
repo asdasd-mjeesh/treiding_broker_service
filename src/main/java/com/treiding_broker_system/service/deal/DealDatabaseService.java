@@ -1,6 +1,6 @@
 package com.treiding_broker_system.service.deal;
 
-import com.treiding_broker_system.model.order.Deal;
+import com.treiding_broker_system.model.deal.Deal;
 import com.treiding_broker_system.repository.DealRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
