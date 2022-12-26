@@ -84,10 +84,10 @@ public class OrderExecutionServiceImpl implements OrderExecutionService {
 
     private boolean checkAbilityToBuy(Order order1, Order order2) {
         if (order1.getAction().equals(TargetAction.BUY)) {
-            return order1.getCurrentPrice().compareTo(order2.getPrice()) >= 0 ||
+            return order1.getCurrentPrice().compareTo(order2.getCurrentPrice()) >= 0 ||
                    !order1.getCurrentCount().equals(order2.getCurrentCount());
         }
-        return order2.getCurrentPrice().compareTo(order1.getPrice()) <= 0 ||
+        return order2.getCurrentPrice().compareTo(order1.getCurrentPrice()) >= 0 ||
                !order2.getCurrentCount().equals(order1.getCurrentCount());
     }
 

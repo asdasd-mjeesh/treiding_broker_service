@@ -508,6 +508,8 @@ class OrderExecutionServiceImplTest {
 
                 Order.builder()
                         .owner(User.builder()
+                                .balance(BigDecimal.valueOf(1000))
+                                .availableBalance(BigDecimal.valueOf(1000))
                                 .id(4L)
                                 .build())
                         .id(3L)
@@ -524,6 +526,8 @@ class OrderExecutionServiceImplTest {
 
         var targetOrder = Order.builder()
                 .owner(User.builder()
+                        .balance(BigDecimal.valueOf(1000))
+                        .availableBalance(BigDecimal.valueOf(1000))
                         .id(4L)
                         .build())
                 .instrument(Instrument.builder()
@@ -533,6 +537,51 @@ class OrderExecutionServiceImplTest {
                 .action(TargetAction.BUY)
                 .initialCount(5)
                 .currentCount(5)
+                .status(Status.ACTIVE)
+                .build();
+
+        var result = orderExecutionServiceImpl.execute(targetOrder, orders);
+        result.forEach(System.out::println);
+        System.out.println(result.size());
+        System.out.println(result);
+    }
+
+    @Test
+    void test13371232() {
+        var orders = List.of(Order.builder()
+                .owner(User.builder()
+                        .balance(BigDecimal.valueOf(1000))
+                        .availableBalance(BigDecimal.valueOf(1000))
+                        .id(9L)
+                        .build())
+                .instrument(Instrument.builder()
+                        .id(1337L)
+                        .title("Pork meat")
+                        .build())
+                .action(TargetAction.SELL)
+                .initialCount(5)
+                .currentCount(5)
+                .price(BigDecimal.valueOf(9))
+                .currentPrice(BigDecimal.valueOf(9))
+                .status(Status.ACTIVE)
+                .build()
+        );
+
+        var targetOrder = Order.builder()
+                .owner(User.builder()
+                        .balance(BigDecimal.valueOf(1000))
+                        .availableBalance(BigDecimal.valueOf(1000))
+                        .id(10L)
+                        .build())
+                .instrument(Instrument.builder()
+                        .id(1337L)
+                        .title("Pork meat")
+                        .build())
+                .action(TargetAction.BUY)
+                .initialCount(5)
+                .currentCount(5)
+                .price(BigDecimal.valueOf(10))
+                .currentPrice(BigDecimal.valueOf(10))
                 .status(Status.ACTIVE)
                 .build();
 
