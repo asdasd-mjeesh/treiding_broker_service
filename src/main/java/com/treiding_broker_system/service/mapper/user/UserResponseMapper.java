@@ -17,6 +17,7 @@ public class UserResponseMapper implements Mapper<UserResponse, User> {
                 .id(from.getId())
                 .username(from.getUsername())
                 .balance(from.getBalance())
+                .availableBalance(from.getAvailableBalance())
                 .role(from.getRole())
                 .build();
     }

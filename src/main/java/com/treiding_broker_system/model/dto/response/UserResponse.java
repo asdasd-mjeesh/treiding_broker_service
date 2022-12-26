@@ -17,5 +17,6 @@ public class UserResponse {
     private String username;
     private Role role;
     private BigDecimal balance;
+    private BigDecimal availableBalance;
 //    private List<Order> orders;
 }

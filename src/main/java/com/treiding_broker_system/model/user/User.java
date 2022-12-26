@@ -18,6 +18,7 @@ public class User {
     private String username;
     private String password;
     private BigDecimal balance;
+    private BigDecimal availableBalance;
     private Role role;
     private List<Order> orders;
 }
