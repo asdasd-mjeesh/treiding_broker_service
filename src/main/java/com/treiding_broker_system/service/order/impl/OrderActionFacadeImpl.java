@@ -3,6 +3,7 @@ package com.treiding_broker_system.service.order.impl;
 import com.treiding_broker_system.model.order.Order;
 import com.treiding_broker_system.model.order.OrderFilter;
 import com.treiding_broker_system.model.order.Status;
+import com.treiding_broker_system.model.order.TargetAction;
 import com.treiding_broker_system.service.deal.DealService;
 import com.treiding_broker_system.service.order.OrderActionFacade;
 import com.treiding_broker_system.service.order.OrderExecutionService;
@@ -55,6 +56,9 @@ public class OrderActionFacadeImpl implements OrderActionFacade {
         allOrders.forEach(order -> {
             if (order.getExpirationDate().isBefore(LocalDateTime.now())) {
                 order.setStatus(Status.EXPIRED);
+                if (order.getAction().equals(TargetAction.BUY)) {
+                    order.getOwner().setAvailableBalance(order.getOwner().getBalance());
+                }
             }
         });
     }

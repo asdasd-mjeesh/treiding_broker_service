@@ -119,11 +119,10 @@ public class OrderExecutionServiceImpl implements OrderExecutionService {
         deals.forEach(deal -> {
             var seller = deal.getSellerOrder().getOwner();
             var buyer = deal.getBuyerOrder().getOwner();
-            seller.setBalance(seller.getBalance().add(deal.getPrice()));
+            seller.setBalance(seller.getBalance().add(deal.getSellerOrder().getPrice()));
             buyer.setBalance(buyer.getBalance().subtract(deal.getPrice()));
             buyer.setAvailableBalance(buyer.getBalance());
         });
-        // basically here can calculate some operation commission, or delegate this process to another class etc
     }
 
     private void setEventualStatus(List<Deal> deals, List<Order> orders) {
