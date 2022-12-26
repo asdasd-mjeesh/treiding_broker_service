@@ -24,6 +24,7 @@ public class UserRepository {
                 .password("admin")
                 .role(Role.ADMIN)
                 .balance(BigDecimal.ZERO)
+                .availableBalance(BigDecimal.ZERO)
                 .build());
     }
 

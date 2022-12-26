@@ -19,6 +19,7 @@ public class UserRequestMapper implements Mapper<User, UserRequest> {
                 .username(from.getUsername())
                 .password(from.getPassword())
                 .balance(from.getBalance())
+                .availableBalance(from.getBalance())
                 .role(Role.USER)
                 .build();
     }

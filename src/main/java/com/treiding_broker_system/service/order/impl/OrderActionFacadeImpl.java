@@ -24,10 +24,10 @@ public class OrderActionFacadeImpl implements OrderActionFacade {
     //@Transactional
     public Order createAndExecute(Order order) {
         this.updateOrdersState();
-
         var relatedOrders = orderService.getAllRelatedOrders(
                 new OrderFilter(order.getInstrument(), order.getOwner().getId(), LocalDateTime.now()));
 
+        // basically new incoming order has the highest priority than other which already in the system
         var deals = orderExecutionService.execute(order, relatedOrders);
 
         if (!deals.isEmpty()) {

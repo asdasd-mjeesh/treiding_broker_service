@@ -10,11 +10,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ *  These are not functional tests.
+ *  I've written them only to track the result by watching them through println
+ * */
 @SpringBootTest
 class OrderActionFacadeImplTest {
     @Autowired
@@ -37,6 +42,7 @@ class OrderActionFacadeImplTest {
                                 .id(43L)
                                 .title("Meat")
                                 .build())
+                        .price(BigDecimal.TEN)
                         .initialCount(9)
                         .currentCount(9)
                         .status(Status.ACTIVE)
@@ -53,6 +59,7 @@ class OrderActionFacadeImplTest {
                                 .id(43L)
                                 .title("Meat")
                                 .build())
+                        .price(BigDecimal.TEN)
                         .initialCount(2)
                         .currentCount(2)
                         .status(Status.ACTIVE)
@@ -69,6 +76,7 @@ class OrderActionFacadeImplTest {
                                 .id(43L)
                                 .title("Meat")
                                 .build())
+                        .price(BigDecimal.TEN)
                         .initialCount(3)
                         .currentCount(3)
                         .status(Status.ACTIVE)
@@ -83,6 +91,7 @@ class OrderActionFacadeImplTest {
                                 .id(43L)
                                 .title("Meat")
                                 .build())
+                        .price(BigDecimal.TEN)
                         .action(TargetAction.SELL)
                         .initialCount(4)
                         .currentCount(4)
@@ -103,6 +112,7 @@ class OrderActionFacadeImplTest {
                         .id(43L)
                         .title("Meat")
                         .build())
+                .price(BigDecimal.TEN)
                 .initialCount(1)
                 .currentCount(1)
                 .status(Status.ACTIVE)

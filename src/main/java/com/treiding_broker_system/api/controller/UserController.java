@@ -4,6 +4,7 @@ import com.treiding_broker_system.exception.EntityNotFoundException;
 import com.treiding_broker_system.exception.UserAccessException;
 import com.treiding_broker_system.model.dto.request.UserRequest;
 import com.treiding_broker_system.model.user.Role;
+import com.treiding_broker_system.model.user.User;
 import com.treiding_broker_system.service.mapper.user.UserRequestMapper;
 import com.treiding_broker_system.service.mapper.user.UserResponseMapper;
 import com.treiding_broker_system.service.user.UserService;
@@ -32,14 +33,14 @@ public class UserController {
     public String createUser(@RequestParam(name = "username") String username,
                              @RequestParam(name = "password") String password,
                              @RequestParam(name = "balance", defaultValue = "1000.0") BigDecimal balance) {
-        var userRequest = UserRequest.builder()
+        var user = User.builder()
                 .username(username)
                 .password(password)
                 .balance(balance)
+                .availableBalance(balance)
+                .role(Role.USER)
                 .build();
-        var user = userRequestMapper.map(userRequest);
         userService.create(user);
-
         return "redirect:/users/login";
     }
 

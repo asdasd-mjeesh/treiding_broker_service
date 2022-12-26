@@ -44,7 +44,7 @@ public class OrderRepository {
                         .currentCount(5)
                         .price(BigDecimal.valueOf(13.37))
                         .status(Status.ACTIVE)
-                        .owner(new User(5L, "TEST", "TEST", BigDecimal.ZERO, Role.USER, null))
+                        .owner(new User(5L, "TEST", "TEST", BigDecimal.ZERO, BigDecimal.ZERO, Role.USER, null))
                 .build());
     }
 

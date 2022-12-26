@@ -1,7 +1,8 @@
-package com.treiding_broker_system.service.user;
+package com.treiding_broker_system.service.user.impl;
 
 import com.treiding_broker_system.model.user.User;
 import com.treiding_broker_system.repository.UserRepository;
+import com.treiding_broker_system.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

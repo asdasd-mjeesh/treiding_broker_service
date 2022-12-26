@@ -26,8 +26,12 @@
     <span th:text="${user.balance}" id="balance"></span>
     <br>
     <br>
-    <label for="session_state"> Session state: </label>
-    <span th:text="${@tradeSessionServiceImpl.getSessionState()}" id="session_state"></span>
+    <label for="balance"> Available balance(for making buy orders): </label>
+    <span th:text="${user.availableBalance}" id="balance"></span>
+    <br>
+    <br>
+    <label for="sessionState"> Trade session state: </label>
+    <span th:text="${@tradeSessionServiceImpl.getSessionState()}" id="sessionState"></span>
     <br>
     <br>
 

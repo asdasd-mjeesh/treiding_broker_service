@@ -33,8 +33,7 @@
     <input name="count" type="number" id="count" placeholder="required count...">
     <br>
     <br>
-    <label for="price">Price limit for 1 unit(min for selling, if you are selling; max for buying, if you are
-        buying:</label>
+    <label for="price">Price limit for all specified items count</label>
     <input name="price" type="number" id="price" placeholder="price limit...">
     <br>
     <br>
@@ -61,6 +60,11 @@
     <span th:if="${@tradeSessionServiceImpl.isSessionActive() == false}">
         <h3>Trade session is stopped at the moment</h3>
     </span>
+    <br>
+    <br>
+
+    <h2><span th:text="${warningMessage}" id="username"></span></h2>
+
     <br>
     <br>
     *If you want to move back to the profile, you can press back-row int the browser options

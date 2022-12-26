@@ -9,6 +9,7 @@ import com.treiding_broker_system.service.mapper.order.OrderResponseMapper;
 import com.treiding_broker_system.service.order.OrderActionFacade;
 import com.treiding_broker_system.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +18,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+@Slf4j
 @Controller
 @RequestMapping("/orders")
 @RequiredArgsConstructor
@@ -47,12 +49,14 @@ public class OrderController {
     }
 
     @GetMapping("/newOrderDetails/ownerId/{ownerId}")
-    public ModelAndView createNewOrder(@PathVariable(name = "ownerId") Long ownerId) {
+    public ModelAndView createNewOrder(@PathVariable(name = "ownerId") Long ownerId,
+                                       @RequestParam(name = "warningMessage", required = false, defaultValue = "") String warningMessage) {
         var mav = new ModelAndView("/order/new-order-details-view");
         var instruments = instrumentService.getAll();
         var userOwner = userService.getById(ownerId).orElseThrow(
                 () -> new EntityNotFoundException(String.format("User with id=%s not found", ownerId)));
 
+        mav.addObject("warningMessage", warningMessage);
         mav.addObject("userOwner", userOwner);
         mav.addObject("instruments", instruments);
         mav.addObject("actions", TargetAction.values());
@@ -65,14 +69,21 @@ public class OrderController {
         var owner = userService.getById(ownerId).orElseThrow(
                 () -> new EntityNotFoundException(String.format("User with id=%s not found", ownerId)));
 
+        var priceLimit = BigDecimal.valueOf(Double.parseDouble(body.get("price")));
+        var action = TargetAction.valueOf(body.get("targetAction"));
+
+        if (action.equals(TargetAction.BUY) && owner.getAvailableBalance().compareTo(priceLimit) < 0) {
+            log.warn("User with id={} couldn't make the order cause he doesn't have enough money on his available balance", ownerId);
+            String warningMessage = "You don't have enough free money to make the order";
+            return String.format("redirect:/orders/newOrderDetails/ownerId/%s?warningMessage=%s", ownerId, warningMessage);
+        }
+
         var instrumentId = Long.parseLong(body.get("instrument"));
         var instrument = instrumentService.getById(instrumentId).orElseThrow(
                 () -> new EntityNotFoundException(String.format("Instrument with id=%s not found", instrumentId)));
 
         var count = Integer.parseInt(body.get("count"));
-        var priceLimit = BigDecimal.valueOf(Double.parseDouble(body.get("price")));
         var expirationDate = LocalDateTime.parse(body.get("expirationDate"));
-        var action = TargetAction.valueOf(body.get("targetAction"));
 
         var order = Order.builder()
                 .owner(owner)

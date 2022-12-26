@@ -1,6 +1,7 @@
 package com.treiding_broker_system.service.trade_session;
 
 import com.treiding_broker_system.model.order.Status;
+import com.treiding_broker_system.model.order.TargetAction;
 import com.treiding_broker_system.model.trade_session.SessionState;
 import com.treiding_broker_system.model.trade_session.TradeSession;
 import com.treiding_broker_system.repository.OrderRepository;
@@ -40,7 +41,14 @@ public class TradeSessionServiceImpl implements TradeSessionService {
         if (!orders.isEmpty()) {
             orders.stream()
                     .filter(order -> order.getStatus().equals(Status.ACTIVE))
-                    .forEach(order -> order.setStatus(Status.CANCELED));
+                    .forEach(order -> {
+                        order.setStatus(Status.CANCELED);
+
+                        var owner = order.getOwner();
+                        if (order.getAction().equals(TargetAction.BUY) && !owner.getBalance().equals(owner.getAvailableBalance())) {
+                            owner.setAvailableBalance(owner.getBalance());
+                        }
+                    });
         }
     }
 
