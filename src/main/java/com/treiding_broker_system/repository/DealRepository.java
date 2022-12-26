@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -15,12 +16,12 @@ public class DealRepository {
     private final List<Deal> deals = new ArrayList<>();
     private final OrderRepository orderRepository;
 
-//    @PostConstruct
+    //    @PostConstruct
     private void init() {
         deals.add(Deal.builder()
-                        .id(213L)
-                        .buyerOrder(orderRepository.getAll().get(0))
-                        .sellerOrder(orderRepository.getAll().get(0))
+                .id(213L)
+                .buyerOrder(orderRepository.getAll().get(0))
+                .sellerOrder(orderRepository.getAll().get(0))
                 .build());
     }
 
@@ -36,6 +37,14 @@ public class DealRepository {
             deals.add(newDeal);
         });
         return newDeals;
+    }
+
+    public List<Deal> getAllUserDeals(Long userId) {
+        return deals.stream()
+                .filter(deal ->
+                        deal.getBuyerOrder().getOwner().getId().equals(userId) ||
+                        deal.getSellerOrder().getOwner().getId().equals(userId)
+                ).collect(Collectors.toList());
     }
 
     public List<Deal> getAll() {

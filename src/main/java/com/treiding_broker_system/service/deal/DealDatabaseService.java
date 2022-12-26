@@ -23,6 +23,11 @@ public class DealDatabaseService implements DealService {
     }
 
     @Override
+    public List<Deal> getAllUserDeals(Long userId) {
+        return dealRepository.getAllUserDeals(userId);
+    }
+
+    @Override
     public List<Deal> createAll(List<Deal> newDeals) {
         return dealRepository.createAll(newDeals);
     }

@@ -18,15 +18,17 @@
     </tr>
 
     <tr th:each="order, state : ${orders}">
-        <td th:utext="${order.id}"> VALUE </td>
-        <td th:utext="${order.instrument.title}"> VALUE </td>
-        <td th:utext="${order.count}"> VALUE </td>
-        <td th:utext="${order.action}"> VALUE </td>
-        <td th:utext="${order.expirationDate}"> VALUE </td>
-        <td th:utext="${order.price}"> VALUE </td>
-        <td th:utext="${order.status}"> VALUE </td>
-        <td th:utext="${order.owner.username}"> VALUE </td>
+        <td th:utext="${order.id}"> VALUE</td>
+        <td th:utext="${order.instrument.title}"> VALUE</td>
+        <td th:utext="${order.count}"> VALUE</td>
+        <td th:utext="${order.action}"> VALUE</td>
+        <td th:utext="${order.expirationDate}"> VALUE</td>
+        <td th:utext="${order.price}"> VALUE</td>
+        <td th:utext="${order.status}"> VALUE</td>
+        <td th:utext="${order.owner.username}"> VALUE</td>
     </tr>
 </table>
+<br>
+*If you want to move back to the profile, you can press back-row int the browser options :)
 </body>
 </html>

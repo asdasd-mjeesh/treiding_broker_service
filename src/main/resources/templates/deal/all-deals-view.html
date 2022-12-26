@@ -16,13 +16,15 @@
     </tr>
 
     <tr th:each="deal, state : ${deals}">
-        <td th:utext="${deal.id}"> VALUE </td>
-        <td th:utext="${deal.seller}"> VALUE </td>
-        <td th:utext="${deal.buyer}"> VALUE </td>
-        <td th:utext="${deal.instrument.title}"> VALUE </td>
-        <td th:utext="${deal.count}"> VALUE </td>
-        <td th:utext="${deal.price}"> VALUE </td>
+        <td th:utext="${deal.id}"> VALUE</td>
+        <td th:utext="${deal.seller}"> VALUE</td>
+        <td th:utext="${deal.buyer}"> VALUE</td>
+        <td th:utext="${deal.instrument.title}"> VALUE</td>
+        <td th:utext="${deal.count}"> VALUE</td>
+        <td th:utext="${deal.price}"> VALUE</td>
     </tr>
 </table>
+<br>
+*If you want to move back to the profile, you can press back-row int the browser options :)
 </body>
 </html>

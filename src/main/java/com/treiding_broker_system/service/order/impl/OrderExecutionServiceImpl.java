@@ -62,9 +62,9 @@ public class OrderExecutionServiceImpl implements OrderExecutionService {
 
     private List<Deal> execute(Order targetOrder, List<Order> allOrders, List<Deal> allDeals) {
         var oppositOrderOptional = allOrders.stream()
-                .filter(oppositOrder -> !oppositOrder.getAction().equals(targetOrder.getAction()))
-                .filter(oppositOrder -> !oppositOrder.getStatus().equals(Status.CAPTURED_BY_PROCESS))
-                .filter(oppositOrder -> !oppositOrder.getStatus().equals(Status.NOT_CONVENIENT))
+                .filter(oppositOrder -> !oppositOrder.getAction().equals(targetOrder.getAction()) &&
+                                        !oppositOrder.getStatus().equals(Status.CAPTURED_BY_PROCESS) &&
+                                        !oppositOrder.getStatus().equals(Status.NOT_CONVENIENT))
                 .findAny();
 
         if (oppositOrderOptional.isEmpty()) {

@@ -9,5 +9,7 @@ public interface DealService {
 
     List<Deal> getAll();
 
+    List<Deal> getAllUserDeals(Long userId);
+
     List<Deal> createAll(List<Deal> newDeals);
 }
