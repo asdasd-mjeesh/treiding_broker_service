@@ -51,6 +51,7 @@ public class OrderExecutionServiceImpl implements OrderExecutionService {
         if (targetOrder.getCurrentCount().equals(oppositOrder.getCurrentCount())) {
             targetOrder.setCurrentCount(0);
             oppositOrder.setCurrentCount(0);
+            this.setCurrentPrice(targetOrder, oppositOrder);
             allDeals.add(this.createDeal(targetOrder, oppositOrder));
             return allDeals;
         }
@@ -58,6 +59,7 @@ public class OrderExecutionServiceImpl implements OrderExecutionService {
         if (targetOrder.getCurrentCount().compareTo(oppositOrder.getCurrentCount()) < 0) {
             oppositOrder.setCurrentCount(oppositOrder.getCurrentCount() - targetOrder.getCurrentCount());
             targetOrder.setCurrentCount(0);
+            this.setCurrentPrice(targetOrder, oppositOrder);
             allDeals.add(this.createDeal(targetOrder, oppositOrder));
             return this.execute(oppositOrder, allOrders, allDeals);
         }
@@ -65,6 +67,7 @@ public class OrderExecutionServiceImpl implements OrderExecutionService {
         if (targetOrder.getCurrentCount().compareTo(oppositOrder.getCurrentCount()) > 0) {
             targetOrder.setCurrentCount(targetOrder.getCurrentCount() - oppositOrder.getCurrentCount());
             oppositOrder.setCurrentCount(0);
+            this.setCurrentPrice(targetOrder, oppositOrder);
             allDeals.add(this.createDeal(oppositOrder, targetOrder));
             return this.execute(targetOrder, allOrders, allDeals);
         }
@@ -72,11 +75,20 @@ public class OrderExecutionServiceImpl implements OrderExecutionService {
         throw new RuntimeException("Something wrong with algorithm logic. We need to fix that");
     }
 
-    private boolean checkAbilityToBuy(Order targetOrder, Order oppositOrder) {
-        if (targetOrder.getAction().equals(TargetAction.BUY)) {
-            return targetOrder.getPrice().compareTo(oppositOrder.getPrice()) <= 0;
+    private void setCurrentPrice(Order order1, Order order2) {
+        var order1Price = order1.getCurrentPrice();
+        var order2Price = order2.getCurrentPrice();
+        order1.setCurrentPrice(order1Price.subtract(order2Price));
+        order2.setCurrentPrice(order2Price.subtract(order1Price));
+    }
+
+    private boolean checkAbilityToBuy(Order order1, Order order2) {
+        if (order1.getAction().equals(TargetAction.BUY)) {
+            return order1.getCurrentPrice().compareTo(order2.getPrice()) >= 0 ||
+                   !order1.getCurrentCount().equals(order2.getCurrentCount());
         }
-        return oppositOrder.getPrice().compareTo(targetOrder.getPrice()) >= 0;
+        return order2.getCurrentPrice().compareTo(order1.getPrice()) <= 0 ||
+               !order2.getCurrentCount().equals(order1.getCurrentCount());
     }
 
     private Optional<Order> getOppositOrder(List<Order> allOrders, Order targetOrder) {
@@ -128,19 +140,20 @@ public class OrderExecutionServiceImpl implements OrderExecutionService {
     // methods below are for setting initial parameters to the orders.
     // I need it because I use that same objects by link-value which I got from repository(there are just lists with objects, not DB),
     // and I don't map that objects to some special models dto for specific execution in this algorithm-class,
-    // instead that I'm just acting with initial object directly through changing certain attributes, such as status and currentCount
+    // instead that I'm just acting with initial object directly through changing certain attributes, such as status, currentPrice and currentCount
     // so if in the execution process values would be changed, it means that initial repository's values will be changed too,
     // and setting them back is necessary.
 
     private void resetDetailsBack(List<Order> allOrders, Order targetOrder) {
         targetOrder.setStatus(Status.ACTIVE);
         targetOrder.setCurrentCount(targetOrder.getInitialCount());
-
+        targetOrder.setCurrentPrice(targetOrder.getPrice());
 
         allOrders.forEach(order -> {
             if (order.getStatus().equals(Status.CAPTURED_BY_PROCESS)) {
                 order.setStatus(Status.ACTIVE);
             }
+            order.setCurrentPrice(order.getPrice());
             order.setCurrentCount(order.getInitialCount());
         });
     }

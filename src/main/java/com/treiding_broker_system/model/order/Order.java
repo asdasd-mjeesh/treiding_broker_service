@@ -22,6 +22,7 @@ public class Order {
     private TargetAction action;
     private LocalDateTime expirationDate;
     private BigDecimal price;
+    private BigDecimal currentPrice;
     private Status status;
     private User owner;
 }

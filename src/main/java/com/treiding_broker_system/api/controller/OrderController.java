@@ -94,6 +94,7 @@ public class OrderController {
                 .action(action)
                 .status(Status.ACTIVE)
                 .price(priceLimit)
+                .currentPrice(priceLimit)
                 .build();
 
         orderActionFacade.createAndExecute(order);

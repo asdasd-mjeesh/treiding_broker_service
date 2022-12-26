@@ -4,11 +4,13 @@ import com.treiding_broker_system.model.instrument.Instrument;
 import com.treiding_broker_system.model.order.Order;
 import com.treiding_broker_system.model.order.Status;
 import com.treiding_broker_system.model.order.TargetAction;
+import com.treiding_broker_system.model.user.User;
 import com.treiding_broker_system.service.order.impl.OrderExecutionServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -24,6 +26,11 @@ class OrderExecutionServiceImplTest {
     void execute() {
         var orders = List.of(
                 Order.builder()
+                        .owner(User.builder()
+                                .id(4L)
+                                .balance(BigDecimal.valueOf(1000))
+                                .availableBalance(BigDecimal.valueOf(1000))
+                                .build())
                         .id(1L)
                         .action(TargetAction.BUY)
                         .instrument(Instrument.builder()
@@ -36,6 +43,11 @@ class OrderExecutionServiceImplTest {
                         .build(),
 
                 Order.builder()
+                        .owner(User.builder()
+                                .id(4L)
+                                .balance(BigDecimal.valueOf(1000))
+                                .availableBalance(BigDecimal.valueOf(1000))
+                                .build())
                         .id(2L)
                         .action(TargetAction.SELL)
                         .instrument(Instrument.builder()
@@ -48,6 +60,11 @@ class OrderExecutionServiceImplTest {
                         .build(),
 
                 Order.builder()
+                        .owner(User.builder()
+                                .id(4L)
+                                .balance(BigDecimal.valueOf(1000))
+                                .availableBalance(BigDecimal.valueOf(1000))
+                                .build())
                         .id(3L)
                         .action(TargetAction.BUY)
                         .instrument(Instrument.builder()
@@ -61,6 +78,11 @@ class OrderExecutionServiceImplTest {
         );
 
         var targetOrder = Order.builder()
+                .owner(User.builder()
+                        .id(4L)
+                        .balance(BigDecimal.valueOf(1000))
+                        .availableBalance(BigDecimal.valueOf(1000))
+                        .build())
                 .instrument(Instrument.builder()
                         .id(1337L)
                         .title("Meat")
@@ -79,6 +101,11 @@ class OrderExecutionServiceImplTest {
     void execute2() {
         var orders = List.of(
                 Order.builder()
+                        .owner(User.builder()
+                                .id(4L)
+                                .balance(BigDecimal.valueOf(1000))
+                                .availableBalance(BigDecimal.valueOf(1000))
+                                .build())
                         .id(1L)
                         .action(TargetAction.SELL)
                         .instrument(Instrument.builder()
@@ -91,6 +118,11 @@ class OrderExecutionServiceImplTest {
                         .build(),
 
                 Order.builder()
+                        .owner(User.builder()
+                                .id(4L)
+                                .balance(BigDecimal.valueOf(1000))
+                                .availableBalance(BigDecimal.valueOf(1000))
+                                .build())
                         .id(3L)
                         .action(TargetAction.SELL)
                         .instrument(Instrument.builder()
@@ -104,6 +136,11 @@ class OrderExecutionServiceImplTest {
         );
 
         var targetOrder = Order.builder()
+                .owner(User.builder()
+                        .id(4L)
+                        .balance(BigDecimal.valueOf(1000))
+                        .availableBalance(BigDecimal.valueOf(1000))
+                        .build())
                 .instrument(Instrument.builder()
                         .id(1337L)
                         .title("Meat")
@@ -122,6 +159,10 @@ class OrderExecutionServiceImplTest {
     void execute3() {
         var orders = List.of(
                 Order.builder()
+                        .owner(User.builder()
+                                .id(4L)
+                                .balance(BigDecimal.valueOf(1000))
+                                .build())
                         .id(9L)
                         .action(TargetAction.BUY)
                         .instrument(Instrument.builder()
@@ -130,10 +171,16 @@ class OrderExecutionServiceImplTest {
                                 .build())
                         .initialCount(9)
                         .currentCount(9)
+                        .price(BigDecimal.valueOf(55))
+                        .currentPrice(BigDecimal.valueOf(55))
                         .status(Status.ACTIVE)
                         .build(),
 
                 Order.builder()
+                        .owner(User.builder()
+                                .id(4L)
+                                .balance(BigDecimal.valueOf(1000))
+                                .build())
                         .id(2L)
                         .action(TargetAction.BUY)
                         .instrument(Instrument.builder()
@@ -142,10 +189,16 @@ class OrderExecutionServiceImplTest {
                                 .build())
                         .initialCount(2)
                         .currentCount(2)
+                        .price(BigDecimal.valueOf(30))
+                        .currentPrice(BigDecimal.valueOf(30))
                         .status(Status.ACTIVE)
                         .build(),
 
                 Order.builder()
+                        .owner(User.builder()
+                                .id(4L)
+                                .balance(BigDecimal.valueOf(1000))
+                                .build())
                         .id(3L)
                         .action(TargetAction.BUY)
                         .instrument(Instrument.builder()
@@ -154,10 +207,16 @@ class OrderExecutionServiceImplTest {
                                 .build())
                         .initialCount(3)
                         .currentCount(3)
+                        .price(BigDecimal.valueOf(25))
+                        .currentPrice(BigDecimal.valueOf(25))
                         .status(Status.ACTIVE)
                         .build(),
 
                 Order.builder()
+                        .owner(User.builder()
+                                .id(4L)
+                                .balance(BigDecimal.valueOf(1000))
+                                .build())
                         .id(1L)
                         .action(TargetAction.SELL)
                         .instrument(Instrument.builder()
@@ -166,13 +225,17 @@ class OrderExecutionServiceImplTest {
                                 .build())
                         .initialCount(1)
                         .currentCount(1)
+                        .price(BigDecimal.valueOf(5))
+                        .currentPrice(BigDecimal.valueOf(5))
                         .status(Status.ACTIVE)
                         .build()
         );
 
-
-
         var targetOrder = Order.builder()
+                .owner(User.builder()
+                        .id(4L)
+                        .balance(BigDecimal.valueOf(1000))
+                        .build())
                 .instrument(Instrument.builder()
                         .id(1337L)
                         .title("Pork meat")
@@ -180,6 +243,8 @@ class OrderExecutionServiceImplTest {
                 .action(TargetAction.SELL)
                 .initialCount(4)
                 .currentCount(4)
+                .price(BigDecimal.valueOf(50))
+                .currentPrice(BigDecimal.valueOf(50))
                 .status(Status.ACTIVE)
                 .build();
 
@@ -191,6 +256,10 @@ class OrderExecutionServiceImplTest {
     void execute11() {
         var orders = List.of(
                 Order.builder()
+                        .owner(User.builder()
+                                .balance(BigDecimal.valueOf(1000))
+                                .id(4L)
+                                .build())
                         .id(9L)
                         .action(TargetAction.BUY)
                         .instrument(Instrument.builder()
@@ -199,10 +268,16 @@ class OrderExecutionServiceImplTest {
                                 .build())
                         .initialCount(9)
                         .currentCount(9)
+                        .price(BigDecimal.valueOf(60))
+                        .currentPrice(BigDecimal.valueOf(60))
                         .status(Status.ACTIVE)
                         .build(),
 
                 Order.builder()
+                        .owner(User.builder()
+                                .balance(BigDecimal.valueOf(1000))
+                                .id(4L)
+                                .build())
                         .id(2L)
                         .action(TargetAction.BUY)
                         .instrument(Instrument.builder()
@@ -211,10 +286,16 @@ class OrderExecutionServiceImplTest {
                                 .build())
                         .initialCount(2)
                         .currentCount(2)
+                        .price(BigDecimal.valueOf(30))
+                        .currentPrice(BigDecimal.valueOf(30))
                         .status(Status.ACTIVE)
                         .build(),
 
                 Order.builder()
+                        .owner(User.builder()
+                                .balance(BigDecimal.valueOf(1000))
+                                .id(4L)
+                                .build())
                         .id(3L)
                         .action(TargetAction.BUY)
                         .instrument(Instrument.builder()
@@ -223,15 +304,23 @@ class OrderExecutionServiceImplTest {
                                 .build())
                         .initialCount(3)
                         .currentCount(3)
+                        .price(BigDecimal.valueOf(25))
+                        .currentPrice(BigDecimal.valueOf(25))
                         .status(Status.ACTIVE)
                         .build(),
 
                 Order.builder()
+                        .owner(User.builder()
+                                .balance(BigDecimal.valueOf(1000))
+                                .id(4L)
+                                .build())
                         .instrument(Instrument.builder()
                                 .id(1337L)
                                 .title("Pork meat")
                                 .build())
                         .action(TargetAction.SELL)
+                        .price(BigDecimal.valueOf(50))
+                        .currentPrice(BigDecimal.valueOf(50))
                         .initialCount(4)
                         .currentCount(4)
                         .status(Status.ACTIVE)
@@ -240,6 +329,10 @@ class OrderExecutionServiceImplTest {
 
 
         var targetOrder = Order.builder()
+                .owner(User.builder()
+                        .id(4L)
+                        .balance(BigDecimal.valueOf(1000))
+                        .build())
                 .id(1L)
                 .action(TargetAction.SELL)
                 .instrument(Instrument.builder()
@@ -248,6 +341,8 @@ class OrderExecutionServiceImplTest {
                         .build())
                 .initialCount(1)
                 .currentCount(1)
+                .price(BigDecimal.valueOf(5))
+                .currentPrice(BigDecimal.valueOf(5))
                 .status(Status.ACTIVE)
                 .build();
 
@@ -315,6 +410,9 @@ class OrderExecutionServiceImplTest {
     void execute5() {
         var orders = List.of(
                 Order.builder()
+                        .owner(User.builder()
+                                .id(4L)
+                                .build())
                         .id(9L)
                         .action(TargetAction.BUY)
                         .instrument(Instrument.builder()
@@ -327,6 +425,9 @@ class OrderExecutionServiceImplTest {
                         .build(),
 
                 Order.builder()
+                        .owner(User.builder()
+                                .id(4L)
+                                .build())
                         .id(6L)
                         .action(TargetAction.SELL)
                         .instrument(Instrument.builder()
@@ -339,6 +440,9 @@ class OrderExecutionServiceImplTest {
                         .build(),
 
                 Order.builder()
+                        .owner(User.builder()
+                                .id(4L)
+                                .build())
                         .id(3L)
                         .action(TargetAction.SELL)
                         .instrument(Instrument.builder()
@@ -352,6 +456,9 @@ class OrderExecutionServiceImplTest {
         );
 
         var targetOrder = Order.builder()
+                .owner(User.builder()
+                        .id(4L)
+                        .build())
                 .instrument(Instrument.builder()
                         .id(1337L)
                         .title("Pork meat")
@@ -370,6 +477,9 @@ class OrderExecutionServiceImplTest {
     void execute6() {
         var orders = List.of(
                 Order.builder()
+                        .owner(User.builder()
+                                .id(4L)
+                                .build())
                         .id(9L)
                         .action(TargetAction.SELL)
                         .instrument(Instrument.builder()
@@ -382,6 +492,9 @@ class OrderExecutionServiceImplTest {
                         .build(),
 
                 Order.builder()
+                        .owner(User.builder()
+                                .id(4L)
+                                .build())
                         .id(6L)
                         .action(TargetAction.SELL)
                         .instrument(Instrument.builder()
@@ -394,6 +507,9 @@ class OrderExecutionServiceImplTest {
                         .build(),
 
                 Order.builder()
+                        .owner(User.builder()
+                                .id(4L)
+                                .build())
                         .id(3L)
                         .action(TargetAction.SELL)
                         .instrument(Instrument.builder()
@@ -407,6 +523,9 @@ class OrderExecutionServiceImplTest {
         );
 
         var targetOrder = Order.builder()
+                .owner(User.builder()
+                        .id(4L)
+                        .build())
                 .instrument(Instrument.builder()
                         .id(1337L)
                         .title("Pork meat")
