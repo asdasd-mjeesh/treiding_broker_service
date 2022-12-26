@@ -121,6 +121,7 @@ public class OrderExecutionServiceImpl implements OrderExecutionService {
             var buyer = deal.getBuyerOrder().getOwner();
             seller.setBalance(seller.getBalance().add(deal.getPrice()));
             buyer.setBalance(buyer.getBalance().subtract(deal.getPrice()));
+            buyer.setAvailableBalance(buyer.getBalance());
         });
         // basically here can calculate some operation commission, or delegate this process to another class etc
     }
