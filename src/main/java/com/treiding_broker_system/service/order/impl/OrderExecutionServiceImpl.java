@@ -132,8 +132,8 @@ public class OrderExecutionServiceImpl implements OrderExecutionService {
         });
 
         orders.stream()
-                .filter(order -> order.getStatus().equals(Status.CAPTURED_BY_PROCESS))
-                .filter(order -> order.getStatus().equals(Status.NOT_CONVENIENT))
+                .filter(order -> order.getStatus().equals(Status.CAPTURED_BY_PROCESS) ||
+                                 order.getStatus().equals(Status.NOT_CONVENIENT))
                 .forEach(order -> order.setStatus(Status.ACTIVE));
     }
 
